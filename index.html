@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AppProtectt &amp; ATS FAQ</title>
+<meta name="description" content="Answers for security architects, mobile developers and backend teams integrating Protectt.ai's AppProtectt RASP SDK and ATS threat-signal SDK.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,600..800&display=swap">
+<style>
+:root{
+  --bg:#F3F6FB; --hero-top:#E4ECF9; --surface:#FFFFFF; --surface-2:#EDF2FA;
+  --ink:#18233D; --ink-2:#46546F; --ink-3:#6B7792; --line:#DCE3EF; --line-strong:#C3CEE2;
+  --brand:#1E3769; --brand-text:#1E3769; --on-brand:#FFFFFF; --red:#D12027; --teal:#3BE4D6;
+  --note-bg:#FFF6E4; --note-ink:#6A4300; --note-line:#EDCB8B;
+  --allow-bg:#E4F4EB; --allow-ink:#0B6436; --block-bg:#FBE7E8; --block-ink:#A0151B;
+  --focus:#2563EB; --logo-plate:transparent; --logo-pad:0;
+  --callout-bg:#1E3769; --callout-ink:#FFFFFF; --callout-ink-2:#C7D4EE; --callout-code:#132651;
+  --shadow:0 1px 2px rgba(20,35,70,.06),0 10px 28px -14px rgba(20,35,70,.22);
+  --sans:"DM Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1222; --hero-top:#0F1D38; --surface:#101B31; --surface-2:#16233F;
+    --ink:#E6ECF7; --ink-2:#A9B6CE; --ink-3:#8492AC; --line:#22304C; --line-strong:#33456A;
+    --brand:#2B4F95; --brand-text:#AFC5F3; --on-brand:#FFFFFF; --red:#FF5C62; --teal:#3BE4D6;
+    --note-bg:#2A2111; --note-ink:#F0C879; --note-line:#4B3B18;
+    --allow-bg:#0E2C1E; --allow-ink:#74D5A0; --block-bg:#361318; --block-ink:#FF8E93;
+    --focus:#7FA6FF; --logo-plate:#FFFFFF; --logo-pad:6px 10px;
+    --callout-bg:#15264B; --callout-ink:#FFFFFF; --callout-ink-2:#B8C8E8; --callout-code:#0C1833;
+    --shadow:0 1px 2px rgba(0,0,0,.35),0 12px 30px -16px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1222; --hero-top:#0F1D38; --surface:#101B31; --surface-2:#16233F;
+  --ink:#E6ECF7; --ink-2:#A9B6CE; --ink-3:#8492AC; --line:#22304C; --line-strong:#33456A;
+  --brand:#2B4F95; --brand-text:#AFC5F3; --on-brand:#FFFFFF; --red:#FF5C62; --teal:#3BE4D6;
+  --note-bg:#2A2111; --note-ink:#F0C879; --note-line:#4B3B18;
+  --allow-bg:#0E2C1E; --allow-ink:#74D5A0; --block-bg:#361318; --block-ink:#FF8E93;
+  --focus:#7FA6FF; --logo-plate:#FFFFFF; --logo-pad:6px 10px;
+  --callout-bg:#15264B; --callout-ink:#FFFFFF; --callout-ink-2:#B8C8E8; --callout-code:#0C1833;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 12px 30px -16px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;font-optical-sizing:auto}
+img{max-width:100%}
+[hidden]{display:none!important}
+a{color:var(--brand-text);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
+code{font-family:var(--mono);font-size:.86em;background:var(--surface-2);color:var(--ink);padding:1px 6px;border-radius:5px;word-break:break-word}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.shell{max-width:1200px;margin:0 auto;padding-inline:28px}
+
+/* Brand band */
+.topstrip{height:4px;background:linear-gradient(90deg,#D12027 0%,#8C1F43 32%,#1E3769 72%)}
+.band{background:linear-gradient(180deg,var(--hero-top) 0%,var(--bg) 100%)}
+.site-head{display:flex;align-items:center;gap:18px;padding-block:18px;flex-wrap:wrap}
+.logo{display:inline-flex;background:var(--logo-plate);padding:var(--logo-pad);border-radius:10px}
+.logo img{display:block;height:38px;width:auto}
+.head-label{font-size:14px;font-weight:600;color:var(--ink-3);padding-left:18px;border-left:1px solid var(--line-strong);line-height:1.2}
+.head-tools{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;width:320px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--ink-3);transition:border-color .15s,box-shadow .15s}
+.search:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 22%,transparent)}
+.search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:15px;color:var(--ink);outline:none}
+.search input::placeholder{color:var(--ink-3)}
+.search svg{flex:none;width:17px;height:17px}
+.switch{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink-2);cursor:pointer;user-select:none}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.switch .track{width:38px;height:22px;border-radius:999px;background:var(--line-strong);position:relative;transition:background .2s}
+.switch .track::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s}
+.switch input:checked + .track{background:#C98A10}
+.switch input:checked + .track::after{transform:translateX(16px)}
+.switch input:focus-visible + .track{outline:2px solid var(--focus);outline-offset:2px}
+
+.hero{padding-block:34px 30px;max-width:780px}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--red);margin:0}
+.hero h1{font-size:clamp(30px,4.4vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.022em;color:var(--brand-text);margin:12px 0 14px;text-wrap:balance}
+.hero h1 em{display:block;color:var(--red);font-style:italic}
+.lede{font-size:17.5px;line-height:1.55;color:var(--ink-2);margin:0;max-width:62ch}
+.legend{margin:16px 0 0;font-size:14px;line-height:1.9;color:var(--ink-3)}
+.legend .note-chip{margin-right:6px;vertical-align:1px}
+.note-chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--note-ink);background:var(--note-bg);border:1px solid var(--note-line);border-radius:999px;padding:2px 9px}
+.hide-notes .note,.hide-notes .legend{display:none}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:236px minmax(0,1fr);gap:44px;align-items:start;padding-top:28px}
+.sidebar{position:sticky;top:20px;display:flex;flex-direction:column;gap:22px}
+.side-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 8px 4px}
+.tablist{display:flex;flex-direction:column;gap:6px}
+.tab{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;width:100%;padding:11px 12px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer;transition:background .15s,border-color .15s}
+.tab:hover{background:var(--surface);border-color:var(--line)}
+.tab .ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--surface-2);color:var(--brand-text)}
+.tab .ico svg{width:18px;height:18px}
+.tab .name{display:block;font-size:15px;font-weight:700;line-height:1.25}
+.tab .sub{display:block;font-size:12.5px;color:var(--ink-3);line-height:1.3}
+.tab .count{font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand);box-shadow:var(--shadow)}
+.tab[aria-selected="true"] .ico{background:rgba(255,255,255,.12);color:var(--teal)}
+.tab[aria-selected="true"] .sub{color:rgba(255,255,255,.72)}
+.tab[aria-selected="true"] .count{background:rgba(255,255,255,.14);color:#fff}
+.section-nav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;border-left:1px solid var(--line)}
+.section-nav a{display:flex;justify-content:space-between;gap:10px;padding:6px 0 6px 14px;margin-left:-1px;border-left:2px solid transparent;font-size:14px;color:var(--ink-2);text-decoration:none;line-height:1.35}
+.section-nav a:hover{color:var(--brand-text);border-left-color:var(--red)}
+.section-nav a span{color:var(--ink-3);font-family:var(--mono);font-size:12px}
+.side-util{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px dashed var(--line-strong);border-radius:12px;font-size:13.5px;color:var(--ink-2);text-decoration:none;line-height:1.4}
+.side-util:hover{border-color:var(--brand-text);color:var(--brand-text)}
+.side-util svg{flex:none;width:16px;height:16px;margin-top:2px;color:var(--red)}
+.side-util strong{display:block;color:var(--ink);font-weight:700}
+
+/* Panel */
+.panel-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.panel-head h2{margin:0;font-size:26px;line-height:1.2;font-weight:800;letter-spacing:-.015em;color:var(--brand-text)}
+.panel-head p{margin:6px 0 0;color:var(--ink-2);max-width:64ch}
+.btn-quiet{font:inherit;font-size:14px;font-weight:600;color:var(--brand-text);background:var(--surface);border:1px solid var(--line-strong);border-radius:999px;padding:8px 16px;cursor:pointer;white-space:nowrap}
+.btn-quiet:hover{border-color:var(--brand-text)}
+
+.group{margin-top:38px;scroll-margin-top:90px}
+.group-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.group-head h3{margin:0;font-size:19px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.gcount{font-size:13px;color:var(--ink-3);white-space:nowrap}
+.qlist{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.qa{scroll-margin-top:90px}
+.qa + .qa{border-top:1px solid var(--line)}
+.qa h4{margin:0;font:inherit}
+.q{display:grid;grid-template-columns:44px 1fr 20px;gap:14px;align-items:center;width:100%;padding:17px 20px;background:none;border:0;border-radius:0;text-align:left;font:inherit;color:var(--ink);cursor:pointer;transition:background .15s}
+.q:hover{background:color-mix(in srgb,var(--surface-2) 70%,transparent)}
+.qid{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink-3);background:var(--surface-2);border-radius:6px;padding:3px 0;text-align:center}
+.qtext{font-size:16px;font-weight:600;line-height:1.4}
+.chev{width:20px;height:20px;color:var(--ink-3);transition:transform .25s ease,color .2s}
+.qa.open .chev{transform:rotate(180deg);color:var(--red)}
+.qa.open .qid{background:var(--brand);color:#fff}
+.a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+.qa.open .a{grid-template-rows:1fr}
+.a-inner{overflow:hidden;visibility:hidden;transition:visibility 0s linear .28s}
+.qa.open .a-inner{visibility:visible;transition-delay:0s}
+.a-body{padding:0 24px 22px 78px;max-width:calc(72ch + 102px);color:var(--ink-2)}
+.a-body p{margin:0 0 12px}
+.a-body ul,.a-body ol{margin:0 0 12px;padding-left:20px}
+.a-body li{margin:4px 0}
+.a-body li::marker{color:var(--red)}
+.a-body strong{color:var(--ink);font-weight:700}
+.a-body > :last-child{margin-bottom:0}
+.a-foot{display:flex;justify-content:flex-end;margin-top:14px}
+.copy{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:13px;color:var(--ink-3);background:none;border:0;padding:4px 6px;cursor:pointer;border-radius:6px}
+.copy:hover{color:var(--brand-text)}
+.copy svg{width:14px;height:14px}
+
+.note{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--note-bg);border:1px solid var(--note-line);color:var(--note-ink);font-size:14.5px;line-height:1.55}
+.note .nlabel{display:block;font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px}
+.note ul{margin:4px 0 0;padding-left:18px}
+.note li::marker{color:currentColor}
+
+.table-wrap{overflow-x:auto;margin:6px 0 12px;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:14.5px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);background:var(--surface-2)}
+td.code{font-family:var(--mono);color:var(--ink);white-space:nowrap}
+.pill{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:500;padding:2px 9px;border-radius:999px}
+.pill.allow{background:var(--allow-bg);color:var(--allow-ink)}
+.pill.block{background:var(--block-bg);color:var(--block-ink)}
+
+/* Decoder callout */
+.callout{margin-top:26px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:center;background:var(--callout-bg);color:var(--callout-ink);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+.callout .eyebrow{color:var(--teal)}
+.callout h3{margin:8px 0 8px;font-size:21px;line-height:1.25;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+.callout p{margin:0 0 10px;color:var(--callout-ink-2);font-size:15px}
+.callout .fine{font-size:13px;color:var(--callout-ink-2);opacity:.9}
+.btn-light{display:inline-flex;align-items:center;gap:8px;margin-top:6px;background:#fff;color:#1E3769;font-weight:700;font-size:15px;text-decoration:none;border-radius:999px;padding:11px 18px}
+.btn-light:hover{background:#EAF0FB}
+.btn-light svg{width:16px;height:16px}
+.sample{background:var(--callout-code);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden}
+.sample-head{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;font-size:12px;color:var(--callout-ink-2);border-bottom:1px solid rgba(255,255,255,.08)}
+.sample pre{margin:0;padding:12px 14px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.6;color:#DDE6F7}
+.sample .k{color:#9FB6E6}.sample .s{color:#FFFFFF}.sample .ok{color:var(--teal)}
+
+/* Flow diagram */
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 16px 22px;margin-bottom:14px}
+.flow-cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 6px 14px}
+.flow-cap strong{font-size:15px}
+.flow-cap span{font-size:13px;color:var(--ink-3)}
+.lanes{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));row-gap:12px}
+.lane-head{grid-row:1;text-align:center;padding:8px 6px;margin-inline:6px;border-radius:9px;background:var(--surface-2);line-height:1.25;position:relative;z-index:1}
+.lane-head b{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
+.lane-head small{display:block;font-size:12px;color:var(--ink-3)}
+.lifeline{position:absolute;top:52px;bottom:0;width:0;border-left:1.5px dashed var(--line-strong)}
+.lifeline:nth-of-type(1){left:calc(100% / 6)}
+.lifeline:nth-of-type(2){left:50%}
+.lifeline:nth-of-type(3){left:calc(500% / 6)}
+.box{position:relative;z-index:1;margin-inline:8px;display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.box.verdict{border-color:var(--brand-text)}
+.n{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--brand);color:#fff;font-family:var(--mono);font-size:11.5px;font-weight:500}
+.msg{position:relative;z-index:1;padding-inline:calc(25% + 4px)}
+.msg .label{display:flex;gap:8px;justify-content:center;align-items:flex-start;font-size:13px;line-height:1.4;color:var(--ink-2);text-align:center;padding-bottom:6px}
+.msg .label .n{width:20px;height:20px;font-size:11px}
+.msg .line{position:relative;border-top:2px solid var(--brand-text);margin-inline:-4px}
+.msg .line::after{content:"";position:absolute;top:-6px;border:5px solid transparent}
+.msg.right .line::after{right:-2px;border-left:8px solid var(--brand-text);border-right:0}
+.msg.left .line::after{left:-2px;border-right:8px solid var(--brand-text);border-left:0}
+.c1{grid-column:1}.c2{grid-column:2}.c3{grid-column:3}.c12{grid-column:1 / 3}.c23{grid-column:2 / 4}
+.lane-tag{display:none}
+.flow .note{margin:16px 6px 0}
+
+/* Planned + empty */
+.planned-list{list-style:none;margin:0;padding:6px 0;border:1px dashed var(--line-strong);border-radius:16px}
+.planned-list li{display:flex;gap:12px;align-items:center;padding:10px 18px;color:var(--ink-2);font-size:15px}
+.chip{flex:none;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line-strong);border-radius:999px;padding:1px 8px}
+.planned-foot{font-size:13.5px;color:var(--ink-3);margin:10px 4px 0}
+.empty{margin-top:30px;padding:26px;border:1px dashed var(--line-strong);border-radius:16px;text-align:center;color:var(--ink-2)}
+.empty button{margin-top:10px}
+
+/* Footer */
+.site-foot{margin-top:72px;background:linear-gradient(90deg,#D12027 0%,#8C1F43 30%,#1E3769 70%);color:#fff}
+.site-foot .shell{display:flex;justify-content:space-between;align-items:center;gap:10px 24px;flex-wrap:wrap;padding-block:18px;font-size:13.5px}
+.site-foot b{font-size:15px;letter-spacing:.01em}
+.site-foot span{opacity:.85}
+
+@media (max-width:900px){
+  .shell{padding-inline:16px}
+  .layout{grid-template-columns:minmax(0,1fr);gap:8px;padding-top:12px}
+  .sidebar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);padding-block:10px;margin-inline:-16px;padding-inline:16px;border-bottom:1px solid var(--line)}
+  .side-label,.section-nav,.side-util{display:none}
+  .tablist{flex-direction:row;gap:8px}
+  .tablist > .tab{flex:1;min-width:0}
+  .tab{grid-template-columns:auto 1fr auto;padding:8px 10px;gap:10px}
+  .tab .ico{width:28px;height:28px}
+  .tab .sub{display:none}
+  .panel-head{padding-top:14px}
+  .a-body{padding:0 20px 20px}
+  .callout{grid-template-columns:minmax(0,1fr)}
+  .head-tools{width:100%;margin-left:0}
+  .search{flex:1;width:auto}
+}
+@media (max-width:640px){
+  .hero{padding-block:22px 18px}
+  .head-label{display:none}
+  .q{grid-template-columns:40px 1fr 18px;gap:12px;padding:15px 16px}
+  .a-body{padding:0 16px 18px}
+  .lanes{grid-template-columns:minmax(0,1fr);row-gap:8px}
+  .lane-head,.lifeline{display:none}
+  .lanes > .box,.lanes > .msg{grid-column:1!important;grid-row:auto!important;margin-inline:0}
+  .msg{padding-inline:0}
+  .msg .line{display:none}
+  .msg .label{justify-content:flex-start;text-align:left;background:var(--surface-2);border-radius:10px;padding:10px 12px;color:var(--ink)}
+  .tab .ico{display:none}
+  .tab{grid-template-columns:1fr auto}
+  .lane-tag{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chev" viewBox="0 0 20 20"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-link" viewBox="0 0 16 16"><path d="M6.5 9.5l3-3M7 4.5l1-1a2.8 2.8 0 014 4l-1 1M9 11.5l-1 1a2.8 2.8 0 01-4-4l1-1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 16 16"><path d="M9 3h4v4M13 3L7.5 8.5M11.5 9.5V13H3V4.5h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="topstrip"></div>
+<div class="band">
+  <div class="shell">
+    <header class="site-head">
+      <a class="logo" href="https://protectt.ai/" aria-label="Protectt.ai home"><img src="data:image/png;base64,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" alt="Protectt.ai" width="114" height="38"></a>
+      <span class="head-label">Product FAQ</span>
+      <div class="head-tools">
+        <label class="search" for="faq-search">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="sr-only">Search questions</span>
+          <input id="faq-search" type="search" placeholder="Search questions, e.g. session ID" autocomplete="off">
+        </label>
+        <label class="switch" for="notes-toggle">
+          <input id="notes-toggle" type="checkbox" checked>
+          <span class="track" aria-hidden="true"></span>
+          Pending notes
+        </label>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">Help Centre · Mobile App Security</p>
+      <h1>Answers for teams integrating <em>AppProtectt &amp; ATS</em></h1>
+      <p class="lede">How the AppProtectt RASP SDK protects your app on the device, how the ATS threat signal lets your backend verify that protection, and what your mobile and backend teams need to build.</p>
+      <p class="legend"><span class="note-chip">Pending confirmation</span> marks answers still awaiting internal verification. Turn off <em>Pending notes</em> to preview the customer view.</p>
+    </section>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <p class="side-label" id="products-label">Products</p>
+        <div class="tablist" role="tablist" aria-labelledby="products-label" aria-orientation="vertical">
+          <button class="tab" role="tab" id="tab-appprotectt" data-tab="appprotectt" aria-controls="panel-appprotectt" aria-selected="true" type="button">
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 2.2l6 2.3v4.9c0 3.9-2.6 6.9-6 8.4-3.4-1.5-6-4.5-6-8.4V4.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.2 10.1l1.9 1.9 3.8-3.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><span class="name">AppProtectt</span><span class="sub">RASP SDK</span></span>
+            <span class="count" aria-label="questions">20</span>
+          </button>
+          <button class="tab" role="tab" id="tab-ats" data-tab="ats" aria-controls="panel-ats" aria-selected="false" tabindex="-1" type="button">
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="1.8" fill="currentColor"/><path d="M6.4 13.6a5 5 0 010-7.2M13.6 6.4a5 5 0 010 7.2M3.9 16.1a8.6 8.6 0 010-12.2M16.1 3.9a8.6 8.6 0 010 12.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <span><span class="name">ATS</span><span class="sub">Threat Signal SDK</span></span>
+            <span class="count" aria-label="questions">20</span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="section-nav" data-for="appprotectt" aria-label="AppProtectt sections">
+        <p class="side-label">In this section</p>
+        <ol>
+          <li><a href="#ap-overview">Overview <span>3</span></a></li>
+          <li><a href="#ap-together">Working with ATS <span>1</span></a></li>
+          <li><a href="#ap-security">Security &amp; threat detection <span>7</span></a></li>
+          <li><a href="#ap-integration">Mobile integration (iOS) <span>6</span></a></li>
+          <li><a href="#ap-runtime">Runtime behaviour <span>1</span></a></li>
+          <li><a href="#ap-performance">Performance <span>1</span></a></li>
+          <li><a href="#ap-privacy">Privacy &amp; compliance <span>1</span></a></li>
+          <li><a href="#ap-troubleshooting">Troubleshooting <span>soon</span></a></li>
+        </ol>
+      </nav>
+      <nav class="section-nav" data-for="ats" aria-label="ATS sections" hidden>
+        <p class="side-label">In this section</p>
+        <ol>
+          <li><a href="#ats-overview">Overview <span>2</span></a></li>
+          <li><a href="#ats-together">Working with AppProtectt <span>3</span></a></li>
+          <li><a href="#ats-mobile">Mobile integration (iOS) <span>2</span></a></li>
+          <li><a href="#ats-backend">Backend integration &amp; API <span>3</span></a></li>
+          <li><a href="#ats-decisions">Decisions &amp; response codes <span>5</span></a></li>
+          <li><a href="#ats-runtime">Runtime behaviour <span>1</span></a></li>
+          <li><a href="#ats-failure">Failure &amp; fallback <span>3</span></a></li>
+          <li><a href="#ats-performance">Performance <span>1</span></a></li>
+          <li><a href="#ats-troubleshooting">Troubleshooting <span>soon</span></a></li>
+        </ol>
+      </nav>
+      <a class="side-util" data-for="ats" href="https://ats-token-decoder.onrender.com/" target="_blank" rel="noopener noreferrer" hidden>
+        <svg aria-hidden="true"><use href="#i-ext"/></svg>
+        <span><strong>Threat Signal Decoder</strong>See the decrypted response for an ATS token</span>
+      </a>
+    </aside>
+
+    <main>
+      <!-- ============ APPPROTECTT ============ -->
+      <section class="panel" id="panel-appprotectt" data-key="appprotectt" role="tabpanel" aria-labelledby="tab-appprotectt" tabindex="0">
+        <div class="panel-head">
+          <div>
+            <h2>AppProtectt SDK</h2>
+            <p>Runtime Application Self-Protection that runs inside your mobile app and checks the device and app environment while the app is in use.</p>
+          </div>
+          <button class="btn-quiet" type="button" data-expand>Expand all</button>
+        </div>
+
+        <section class="group" id="ap-overview">
+          <div class="group-head"><h3>Overview</h3><span class="gcount">3 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="a1"><h4><button class="q" type="button"><span class="qid">A1</span><span class="qtext">What is AppProtectt SDK?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>AppProtectt is Protectt.ai's Runtime Application Self-Protection (RASP) SDK for mobile apps. You build it into your app. While the app runs, it checks the device and the app environment against the protections configured for your app.</p>
+              <p>On iOS it comes as an XCFramework with a small set of integration files from Protectt.ai.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="a2"><h4><button class="q" type="button"><span class="qid">A2</span><span class="qtext">What is RASP, and how is it different from traditional security controls?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>RASP (Runtime Application Self-Protection) is security built into the app itself. It watches the app's own environment while the app is running.</p>
+              <p>Perimeter and server-side controls only see traffic that reaches your servers. RASP works inside the app on the user's device, where risks such as unsafe networks, remote-access tools or screen capture actually happen.</p>
+              <p>It adds to server-side security, secure coding and code hardening; it doesn't replace them.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="a3"><h4><button class="q" type="button"><span class="qid">A3</span><span class="qtext">Why do we need AppProtectt if our app already uses HTTPS and server-side controls?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>Your app runs on devices and networks you don't control. HTTPS protects data in transit, but it can't tell you:</p>
+              <ul>
+                <li>whether a remote-access or screen-sharing app is installed</li>
+                <li>whether screens are being captured</li>
+                <li>whether the Wi-Fi network is unsafe</li>
+                <li>whether a request comes from a genuine copy of your app</li>
+              </ul>
+              <p>AppProtectt adds runtime checks for conditions like these. With ATS, it also gives your backend a signal about the device's security state that the backend can verify.</p>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ap-together">
+          <div class="group-head"><h3>How AppProtectt and ATS work together</h3><span class="gcount">1 question</span></div>
+          <div data-flow></div>
+          <div class="qlist">
+            <article class="qa" id="a17"><h4><button class="q" type="button"><span class="qid">A17</span><span class="qtext">Does AppProtectt report threats to our backend? How does ATS fit in?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The AppProtectt guide doesn't describe AppProtectt sending threat information to your backend.</p>
+              <p>For a view of the device's security state that your backend can verify, Protectt.ai provides <strong>ATS</strong>. ATS creates an encrypted signal, which your backend checks with Protectt's backend plugin to get ALLOW or BLOCK.</p>
+              <p>In short: AppProtectt protects the app on the device, and ATS lets your server check that protection before it trusts a request.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Whether AppProtectt itself talks to Protectt.ai servers (for example for configuration or telemetry), and how it behaves offline.</div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ap-security">
+          <div class="group-head"><h3>Security &amp; threat detection</h3><span class="gcount">7 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="a4"><h4><button class="q" type="button"><span class="qid">A4</span><span class="qtext">What threats does AppProtectt address on iOS?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The iOS guide documents these protections, depending on what is enabled for your app:</p>
+              <ul>
+                <li><strong>Wi-Fi network security validation:</strong> checks the security status of the connected Wi-Fi network.</li>
+                <li><strong>Harmful app detection:</strong> checks whether certain potentially harmful apps are installed, such as remote-access and screen-sharing tools.</li>
+                <li><strong>Screenshot prevention:</strong> blocks screenshots of the app's screens.</li>
+                <li><strong>App attestation:</strong> uses Apple's App Attest to help confirm the app is genuine. Applies only if this rule is in your threat model.</li>
+                <li><strong>Device association:</strong> links the SDK to a device identifier you provide.</li>
+              </ul>
+              <div class="note"><span class="nlabel">Pending confirmation</span>The guide doesn't list the full set of runtime detections (for example jailbreak, debugger, hooking or tampering detection). Protectt.ai should provide the complete coverage for your configuration.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="a5"><h4><button class="q" type="button"><span class="qid">A5</span><span class="qtext">How is the set of protections for our app decided?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>Protections are set per customer. Protectt.ai supplies a Threat Modelling document and a Release Document for your app, and some integration steps depend on them.</p>
+              <p>For example, App Attestation is only needed if the attestation rule is in your threat-modelling sheet. You also get separate feature files for UAT and production.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="a10"><h4><button class="q" type="button"><span class="qid">A10</span><span class="qtext">Why does AppProtectt need location permission?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>iOS requires location permission before an app can read details of the connected Wi-Fi network. AppProtectt needs those details for Wi-Fi security validation.</p>
+              <p>The guide gives suggested permission text saying location is used only to check the network's security. If your app already asks for location permission, you can keep your existing text.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>What AppProtectt does if the user denies location permission.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="a11"><h4><button class="q" type="button"><span class="qid">A11</span><span class="qtext">Why do we need to add URL schemes to Info.plist?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>iOS only lets an app check whether another app is installed if that app's URL scheme is declared in Info.plist, under <code>LSApplicationQueriesSchemes</code>. Protectt.ai provides the list of schemes AppProtectt uses for harmful-app detection.</p>
+              <p>If your app already has this key, add the provided entries rather than replacing yours. iOS limits how many schemes an app can declare, so check the combined total if you already declare many.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="a12"><h4><button class="q" type="button"><span class="qid">A12</span><span class="qtext">What does screenshot prevention do, and where is it turned on?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>It blocks screenshots of your app's screens. You turn it on once, passing the app's window, either in your base view controller or in AppDelegate right after starting the SDK.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Whether it also covers screen recording and screen mirroring, and the recommended setup for apps that use SceneDelegate.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="a13"><h4><button class="q" type="button"><span class="qid">A13</span><span class="qtext">What is App Attestation, and do we need it?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>App Attest is an Apple service that helps a backend confirm that requests come from a genuine copy of your app on a genuine Apple device. You only need it if the attestation rule is in your threat model.</p>
+              <p>Setup has two parts:</p>
+              <ul>
+                <li><strong>Apple Developer Portal:</strong> create an App Attest key and enable the App Attest capability. The key file can only be downloaded once, so store it securely.</li>
+                <li><strong>Xcode:</strong> add the App Attest capability and set the App Attest environment entitlement to production.</li>
+              </ul>
+              <div class="note"><span class="nlabel">Pending confirmation</span>How the App Attest key and Key ID are shared with Protectt.ai, and what happens on devices or iOS versions that don't support App Attest.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="a18"><h4><button class="q" type="button"><span class="qid">A18</span><span class="qtext">What if an attacker reverse-engineers, tampers with, or removes AppProtectt?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>No protection that runs on the device can be guaranteed against a determined attacker, because the attacker controls the device. ATS is designed to close this gap.</p>
+              <p>With ATS, your backend requires a valid, encrypted signal tied to the session. A missing, invalid or tampered signal, or unusual device parameters, results in <span class="pill block">BLOCK</span> on the server. So tampering can be detected even if the on-device checks are defeated.</p>
+              <p>Where App Attest is enabled, it adds another check that the app is genuine.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>What measures AppProtectt uses to protect itself against tampering.</div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ap-integration">
+          <div class="group-head"><h3>Mobile integration (iOS)</h3><span class="gcount">6 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="a6"><h4><button class="q" type="button"><span class="qid">A6</span><span class="qtext">Which platforms and versions are supported, and what are the prerequisites?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The iOS guide specifies:</p>
+              <ul>
+                <li>iOS 12.0 minimum deployment target (iOS 14.0 if you also use ATS)</li>
+                <li>Xcode 15.0 or later</li>
+                <li>Swift 5.5.2 or later</li>
+                <li>Swift and Objective-C projects are both supported</li>
+              </ul>
+              <p>You also need an Apple Developer account to:</p>
+              <ul>
+                <li>add capabilities (Access Wi-Fi Information, Hotspot, and optionally App Attest)</li>
+                <li>regenerate provisioning profiles if needed</li>
+                <li>supply your Apple Team ID</li>
+              </ul>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Android and cross-platform frameworks (Flutter, React Native, .NET MAUI/Xamarin) aren't covered by the documents reviewed.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="a7"><h4><button class="q" type="button"><span class="qid">A7</span><span class="qtext">What do we receive from Protectt.ai, and what does the integration look like?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>For each environment you get a Release Document. It holds your app-specific settings and credentials (Client ID, Channel ID, licence details) and download links for the SDK, feature file, integration guide, handler file and Threat Modelling document.</p>
+              <p>A typical iOS integration:</p>
+              <ol>
+                <li>Add the SDK framework, handler file, alert UI files, icon assets and feature files to your app target.</li>
+                <li>Set the framework to "Embed &amp; Sign".</li>
+                <li>Start the SDK when the app launches.</li>
+                <li>Add the required capabilities and Info.plist entries: location permission for Wi-Fi validation, and queried URL schemes for harmful-app detection.</li>
+                <li>Pass a device ID to the SDK.</li>
+                <li>Turn on screenshot prevention.</li>
+                <li>Turn on App Attest, if your threat model includes it.</li>
+                <li>Optionally, add ATS so your backend can verify threat signals.</li>
+              </ol>
+            </div></div></div></article>
+
+            <article class="qa" id="a8"><h4><button class="q" type="button"><span class="qid">A8</span><span class="qtext">How much change does our application need?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The documented changes mostly add files and configuration:</p>
+              <ul>
+                <li>adding files</li>
+                <li>a few SDK calls (start-up, device ID, screenshot prevention)</li>
+                <li>Info.plist entries and capabilities</li>
+                <li>possibly regenerated provisioning profiles</li>
+              </ul>
+              <p>The guide doesn't call for changes to your business logic. If your app already asks for location permission or already declares queried URL schemes, you add to that configuration rather than replacing it.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="a9"><h4><button class="q" type="button"><span class="qid">A9</span><span class="qtext">Where is the SDK started, and how are UAT and production kept separate?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>You start the SDK when the app launches, in AppDelegate's <code>didFinishLaunchingWithOptions</code>, using the values from your Release Document plus your Apple Team ID.</p>
+              <p>A build-flavour setting picks the environment: development/UAT or production. Each environment has its own feature file and credentials, so make sure production builds use the production values.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="a14"><h4><button class="q" type="button"><span class="qid">A14</span><span class="qtext">Why must we pass a device ID to AppProtectt?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The device ID ties the SDK session to the current device. You can use your existing way of identifying devices; the guide's example uses the iOS vendor identifier.</p>
+              <p>Use a stable identifier, and use the same one across your app and backend.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Whether the device ID given to AppProtectt must match the one given to ATS.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="a15"><h4><button class="q" type="button"><span class="qid">A15</span><span class="qtext">What is the role of the AppProtectt handler file?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The handler file is the layer between your code and the SDK. Your app calls it to start AppProtectt, pass the device ID and turn on screenshot prevention.</p>
+              <p>Use the handler file from the same release as the SDK.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Whether the handler offers callbacks or events your app can subscribe to (for example, to learn which threat was detected), and whether customers may modify it.</div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ap-runtime">
+          <div class="group-head"><h3>Runtime behaviour</h3><span class="gcount">1 question</span></div>
+          <div class="qlist">
+            <article class="qa" id="a16"><h4><button class="q" type="button"><span class="qid">A16</span><span class="qtext">What happens when AppProtectt detects a threat?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The SDK package includes Protectt-supplied alert and bottom-sheet screens and icons for showing security messages to the user.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>The guide doesn't say:
+                <ul>
+                  <li>how the app responds to each threat type (warn only, limit features, or close the app)</li>
+                  <li>how much of that response can be customised</li>
+                  <li>whether your app code is told about the threat</li>
+                </ul>
+              </div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ap-performance">
+          <div class="group-head"><h3>Performance</h3><span class="gcount">1 question</span></div>
+          <div class="qlist">
+            <article class="qa" id="a19"><h4><button class="q" type="button"><span class="qid">A19</span><span class="qtext">Does AppProtectt affect app performance, and does it run asynchronously?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The guide doesn't publish performance figures or explain how AppProtectt uses threads. The SDK starts when the app launches, and the guide's example passes the device ID a few seconds after launch.</p>
+              <p>We recommend measuring the effect in your UAT build.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>
+                <ul>
+                  <li>Typical effect on app size, launch time, memory and battery.</li>
+                  <li>Whether checks run in the background, on a schedule, or on demand.</li>
+                </ul>
+              </div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ap-privacy">
+          <div class="group-head"><h3>Privacy &amp; compliance</h3><span class="gcount">1 question</span></div>
+          <div class="qlist">
+            <article class="qa" id="a20"><h4><button class="q" type="button"><span class="qid">A20</span><span class="qtext">What data does AppProtectt use, and what are the privacy implications?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>From the integration guide:</p>
+              <ul>
+                <li><strong>Location permission</strong> is used to check the security of the connected Wi-Fi network. The suggested permission text says this information is neither stored nor transmitted. See also <a href="#a10">A10</a>.</li>
+                <li><strong>The installed-app check</strong> is limited to the URL schemes declared in Info.plist.</li>
+                <li><strong>A device identifier</strong> is supplied by your app.</li>
+              </ul>
+              <div class="note"><span class="nlabel">Pending confirmation</span>
+                <ul>
+                  <li>Exactly what data AppProtectt collects or sends, and where it is processed.</li>
+                  <li>Whether the SDK includes an Apple privacy manifest.</li>
+                </ul>
+              </div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group planned" id="ap-troubleshooting">
+          <div class="group-head"><h3>Troubleshooting</h3><span class="gcount">In preparation</span></div>
+          <ul class="planned-list">
+            <li><span class="chip">Planned</span>Build or embed errors after adding the frameworks</li>
+            <li><span class="chip">Planned</span>Harmful-app detection not triggering (missing Info.plist schemes)</li>
+            <li><span class="chip">Planned</span>Capabilities missing after provisioning profile changes</li>
+          </ul>
+          <p class="planned-foot">Answers will be added once the open documentation items are confirmed.</p>
+        </section>
+
+        <div class="empty" hidden></div>
+      </section>
+
+      <!-- ============ ATS ============ -->
+      <section class="panel" id="panel-ats" data-key="ats" role="tabpanel" aria-labelledby="tab-ats" tabindex="0" hidden>
+        <div class="panel-head">
+          <div>
+            <h2>ATS SDK</h2>
+            <p>Threat-signal SDK that turns the device's security state into an encrypted, session-bound token your backend verifies before trusting a request.</p>
+          </div>
+          <button class="btn-quiet" type="button" data-expand>Expand all</button>
+        </div>
+
+        <aside class="callout" aria-labelledby="decoder-title">
+          <div>
+            <p class="eyebrow">Helper utility</p>
+            <h3 id="decoder-title">See what a decrypted ATS token looks like</h3>
+            <p>The Threat Signal Decoder decrypts and validates an ATS signal token and shows the response it produces. Paste a signal token, optionally add the client session ID, then choose <strong>Decrypt &amp; validate</strong>.</p>
+            <p class="fine">The decoder keeps its private key on its own server. You never need to paste a key.</p>
+            <a class="btn-light" href="https://ats-token-decoder.onrender.com/" target="_blank" rel="noopener noreferrer">Open Threat Signal Decoder <svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+          </div>
+          <div class="sample" aria-label="Example ALLOW response">
+            <div class="sample-head"><span>Example response · P000</span><span>from the plugin docs</span></div>
+<pre>{
+  <span class="k">"action"</span>: <span class="ok">"ALLOW"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Valid device and environment"</span>,
+  <span class="k">"code"</span>: <span class="s">"P000"</span>,
+  <span class="k">"pbid"</span>: <span class="s">"8558C8D4…76CC1C"</span>,
+  <span class="k">"sessionId"</span>: <span class="s">"7941bf89-e600-44"</span>,
+  <span class="k">"deviceId"</span>: <span class="s">"d9755dc682f01860"</span>,
+  <span class="k">"timestamp"</span>: <span class="s">"1769666538079"</span>
+}</pre>
+          </div>
+        </aside>
+
+        <section class="group" id="ats-overview">
+          <div class="group-head"><h3>Overview</h3><span class="gcount">2 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="b1"><h4><button class="q" type="button"><span class="qid">B1</span><span class="qtext">What is ATS SDK?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>ATS is Protectt.ai's threat-signal SDK. It sits alongside AppProtectt in your mobile app and creates a signal token: an encrypted summary of the device's security state, tied to a session. Your app sends the token to your backend, where Protectt's Java plugin checks it and returns <span class="pill allow">ALLOW</span> or <span class="pill block">BLOCK</span>.</p>
+              <p>The solution has three parts:</p>
+              <ul>
+                <li>the ATS SDK in the app</li>
+                <li>the Threat Signal Validation Plugin (a JAR) in your backend</li>
+                <li>Protectt.ai's server, which the plugin consults for extra checks such as whether the device is blacklisted</li>
+              </ul>
+            </div></div></div></article>
+
+            <article class="qa" id="b2"><h4><button class="q" type="button"><span class="qid">B2</span><span class="qtext">Why do we need ATS if we already have AppProtectt?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>AppProtectt protects the app on the device. But from a normal API request, your backend has no way to tell whether that protection is present and working. An attacker could reverse-engineer the app, tamper with the SDK or remove it, and then call your APIs directly.</p>
+              <p>ATS moves the trust decision to your server. Each protected request must carry a valid signal, tied to a session and a timestamp, which your backend decrypts and checks through the plugin. If the signal is missing, tampered with, too old, or reports problems, your backend can block the request.</p>
+              <p>This makes it much harder to get around the on-device protection unnoticed, though no control can guarantee protection against every attack.</p>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ats-together">
+          <div class="group-head"><h3>How AppProtectt and ATS work together</h3><span class="gcount">3 questions</span></div>
+          <div data-flow></div>
+          <div class="qlist">
+            <article class="qa" id="b3"><h4><button class="q" type="button"><span class="qid">B3</span><span class="qtext">How does ATS work with AppProtectt?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>ATS is added to the same project as AppProtectt. The signal it creates includes threat parameters describing the device's security state, plus session and device identifiers.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>
+                <ul>
+                  <li>How ATS gets security results from AppProtectt (for example, through a handler callback).</li>
+                  <li>Whether creating a signal depends on AppProtectt having finished its checks.</li>
+                </ul>
+              </div>
+            </div></div></div></article>
+
+            <article class="qa" id="b5"><h4><button class="q" type="button"><span class="qid">B5</span><span class="qtext">What information is used to create the signal?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The documented inputs are:</p>
+              <ul>
+                <li><strong>Session ID</strong>, issued by your backend</li>
+                <li><strong>Device ID</strong>, a unique identifier for the device</li>
+                <li><strong>Timestamp</strong>, generated by your server</li>
+              </ul>
+              <p>The token is encrypted. It carries the session ID, a Protectt device identifier ("pbid"), the device ID, threat parameters and the session timestamp.</p>
+              <p>Your app doesn't need to read or build the token; it just passes it on. To see what a decrypted token contains, try the <a href="https://ats-token-decoder.onrender.com/" target="_blank" rel="noopener noreferrer">Threat Signal Decoder</a>.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="b15"><h4><button class="q" type="button"><span class="qid">B15</span><span class="qtext">How is the final ATS decision returned to our app?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The plugin returns its result to your backend, not to the app. Your backend enforces the decision and chooses what to send back in the API response.</p>
+              <p>For example, it can continue on ALLOW, or on BLOCK return an error or blocked status so the app can tell the user. The docs describe the final JSON (action, reason, code, identifiers and timestamp) as being returned to the frontend.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>How much of the reason detail should be passed to the app.</div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ats-mobile">
+          <div class="group-head"><h3>Mobile integration (iOS)</h3><span class="gcount">2 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="b4"><h4><button class="q" type="button"><span class="qid">B4</span><span class="qtext">What does ATS integration involve on the mobile side?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <ol>
+                <li>Add the ATS SDK package (ATS.xcframework) to the same project as AppProtectt and set it to "Embed &amp; Sign".</li>
+                <li>Set your app's minimum deployment target to iOS 14.0 or later.</li>
+                <li>Get a session ID and a timestamp from your backend.</li>
+                <li>Call ATS's signal method with the session ID, a unique device ID and the timestamp.</li>
+                <li>Send the returned signal token to your backend in the request body.</li>
+              </ol>
+            </div></div></div></article>
+
+            <article class="qa" id="b10"><h4><button class="q" type="button"><span class="qid">B10</span><span class="qtext">How is the signal sent to our backend?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>Put it in the JSON body of each API request you want to protect:</p>
+              <ul>
+                <li><code>signalToken</code>: the encrypted signal (required)</li>
+                <li><code>clientSessionID</code>: the session ID the signal was created for</li>
+                <li><code>clientId</code> and <code>chnId</code>: your client and channel identifiers</li>
+              </ul>
+              <p>You choose which APIs carry the signal; the docs mention onboarding and transaction flows. A request with a missing or invalid signal is treated as invalid and returns <span class="pill block">BLOCK</span>.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Which of these fields are mandatory. The docs contradict each other on this.</div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ats-backend">
+          <div class="group-head"><h3>Backend integration &amp; API</h3><span class="gcount">3 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="b11"><h4><button class="q" type="button"><span class="qid">B11</span><span class="qtext">What is the backend plugin (JAR), and what does it do?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The Threat Signal Validation Plugin is a small Java library you add to your backend. For each signal from the app, it:</p>
+              <ol>
+                <li>checks the required fields are present</li>
+                <li>decrypts and decodes the token</li>
+                <li>makes a first decision</li>
+                <li>asks Protectt.ai's server for extra checks, such as blacklist status</li>
+                <li>returns a final ALLOW or BLOCK with a reason code</li>
+              </ol>
+              <p>You don't write any decryption or threat-checking logic yourself.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="b12"><h4><button class="q" type="button"><span class="qid">B12</span><span class="qtext">How is the token decrypted and checked?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>Decryption happens inside the plugin, using a private key your backend passes to the validation call. Treat this key as a secret.</p>
+              <p>A token that can't be decrypted, or has been changed, results in <span class="pill block">BLOCK</span> (P001). After its own checks, the plugin sends the decoded signal to Protectt.ai's server for more checks and combines both results.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>How the key is issued, stored and rotated for each environment.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="b19"><h4><button class="q" type="button"><span class="qid">B19</span><span class="qtext">What are the prerequisites, and what changes does our backend need?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p><strong>Mobile prerequisites</strong></p>
+              <ul>
+                <li>AppProtectt already integrated</li>
+                <li>ATS SDK added</li>
+                <li>iOS 14.0 or later</li>
+              </ul>
+              <p><strong>Backend prerequisites</strong></p>
+              <ul>
+                <li>Java 8 or later, with Maven or Gradle</li>
+                <li>the plugin JAR, in your local repository or private artifact repository</li>
+                <li>the private key for signal validation</li>
+                <li>outbound network access to Protectt.ai's servers</li>
+              </ul>
+              <p><strong>Backend changes</strong></p>
+              <ol>
+                <li>Issue a session ID and a server timestamp to the app before it creates a signal.</li>
+                <li>Accept the signal fields in protected API requests.</li>
+                <li>Set up the plugin and call its validation method.</li>
+                <li>Add the session and freshness checks.</li>
+                <li>Enforce ALLOW/BLOCK in your business flow.</li>
+              </ol>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Support for backends other than Java (for example .NET, Node.js or Python).</div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ats-decisions">
+          <div class="group-head"><h3>Decisions &amp; response codes</h3><span class="gcount">5 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="b13"><h4><button class="q" type="button"><span class="qid">B13</span><span class="qtext">How does the backend decide ALLOW or BLOCK, and what responses can we get?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The verdict combines two things: the plugin's own checks on the token (integrity, session match, device parameters) and checks on Protectt.ai's server (for example, blacklist status).</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th scope="col">Code</th><th scope="col">Action</th><th scope="col">Meaning</th></tr></thead>
+                  <tbody>
+                    <tr><td class="code">P000</td><td><span class="pill allow">ALLOW</span></td><td>Valid device and environment</td></tr>
+                    <tr><td class="code">P006</td><td><span class="pill allow">ALLOW</span></td><td>Valid device and environment, with a locally generated device identifier</td></tr>
+                    <tr><td class="code">P001</td><td><span class="pill block">BLOCK</span></td><td>Invalid or tampered signal token</td></tr>
+                    <tr><td class="code">P002</td><td><span class="pill block">BLOCK</span></td><td>Unexpected error during validation</td></tr>
+                    <tr><td class="code">P003</td><td><span class="pill block">BLOCK</span></td><td>Protectt server rejected validation</td></tr>
+                    <tr><td class="code">P004</td><td><span class="pill block">BLOCK</span></td><td>Anomalies in device parameters (rule bypass detected); includes the rule IDs triggered</td></tr>
+                    <tr><td class="code">P005</td><td><span class="pill block">BLOCK</span></td><td>Device already blacklisted</td></tr>
+                    <tr><td class="code">P007</td><td><span class="pill block">BLOCK</span></td><td>Session ID mismatch</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Each result has <code>action</code>, <code>reason</code> and <code>code</code>, plus <code>pbid</code>, <code>sessionId</code>, <code>deviceId</code> and <code>timestamp</code> where they apply. To see a decrypted response for a real token, use the <a href="https://ats-token-decoder.onrender.com/" target="_blank" rel="noopener noreferrer">Threat Signal Decoder</a>.</p>
+            </div></div></div></article>
+
+            <article class="qa" id="b14"><h4><button class="q" type="button"><span class="qid">B14</span><span class="qtext">What must our backend do after it gets the result?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p><strong>Required by the docs</strong></p>
+              <ol>
+                <li><strong>Match the session.</strong> Check that the returned <code>sessionId</code> matches the session you stored.</li>
+                <li><strong>Check freshness.</strong> Check that the returned <code>timestamp</code> is within your allowed window (for example, 5 minutes).</li>
+                <li><strong>Enforce the action.</strong> Continue the business request only on ALLOW; reject it on BLOCK.</li>
+              </ol>
+              <p><strong>Recommended</strong></p>
+              <ul>
+                <li><strong>Log the result.</strong> Record the code, reason and any rule IDs for monitoring and investigation.</li>
+              </ul>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Recommended handling of P006 (ALLOW with a locally generated device identifier).</div>
+            </div></div></div></article>
+
+            <article class="qa" id="b6"><h4><button class="q" type="button"><span class="qid">B6</span><span class="qtext">What is the role of the session ID?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The session ID ties the signal to a specific session your backend issued. If the session doesn't match, the plugin returns <span class="pill block">BLOCK</span> with code P007 ("SessionId Mismatch").</p>
+              <p>Your backend must also confirm that the <code>sessionId</code> in the result matches the session it stored for that user or request. This stops a signal from one session being reused in another.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>The required session ID format and length. The samples show different lengths.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="b7"><h4><button class="q" type="button"><span class="qid">B7</span><span class="qtext">What is the role of the device ID?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The device ID identifies the device that sent the signal. It comes back in the result along with Protectt's own device identifier (pbid), which allows decisions per device, such as blacklisting.</p>
+              <p>Use a stable, unique identifier.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Whether it must be the same device ID given to AppProtectt, and how app reinstalls or identifier resets are handled.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="b8"><h4><button class="q" type="button"><span class="qid">B8</span><span class="qtext">Why is a timestamp included, and why must it come from the server?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The timestamp lets your backend confirm that a signal is fresh, not a replay of an earlier recorded request. After validation, compare the returned timestamp with your server's current time and reject signals outside your allowed window. The docs' example is about 5 minutes.</p>
+              <p>Using a server timestamp avoids relying on the device's clock, which a user or attacker can change.</p>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ats-runtime">
+          <div class="group-head"><h3>Runtime behaviour</h3><span class="gcount">1 question</span></div>
+          <div class="qlist">
+            <article class="qa" id="b9"><h4><button class="q" type="button"><span class="qid">B9</span><span class="qtext">Is signal creation synchronous or asynchronous?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The documented example returns the signal directly from the call. The docs don't say how it uses threads, how long it takes, or what happens on errors.</p>
+              <p>Because the backend applies a freshness window, create the signal shortly before the request that carries it.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>
+                <ul>
+                  <li>Whether the call blocks, and whether it's safe on the main thread.</li>
+                  <li>Typical time taken.</li>
+                  <li>What it returns on failure.</li>
+                  <li>Whether a new signal is needed for every request or once per session.</li>
+                </ul>
+              </div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ats-failure">
+          <div class="group-head"><h3>Failure &amp; fallback scenarios</h3><span class="gcount">3 questions</span></div>
+          <div class="qlist">
+            <article class="qa" id="b16"><h4><button class="q" type="button"><span class="qid">B16</span><span class="qtext">What happens if AppProtectt or ATS is removed, bypassed, or tampered with?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The protection comes from your backend enforcing the check. As long as your backend requires a valid signal on protected APIs:</p>
+              <ul>
+                <li><strong>No token is sent</strong> (for example, ATS was removed or the call was skipped): the request is invalid and returns <span class="pill block">BLOCK</span> (P001).</li>
+                <li><strong>The token is changed or forged:</strong> it fails the check and returns <span class="pill block">BLOCK</span> (P001).</li>
+                <li><strong>An old token, or one from another session, is replayed:</strong> the session-mismatch check (P007) and your own session and freshness checks catch it.</li>
+                <li><strong>Device parameters show anomalies or a rule bypass:</strong> the result is <span class="pill block">BLOCK</span> (P004), with the rule IDs triggered.</li>
+              </ul>
+              <p>These protections only work if your backend rejects every protected request that doesn't have a valid ALLOW.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>What ATS produces when AppProtectt is missing, not started, or hasn't reported results. In particular, whether ATS creates a signal that comes back as BLOCK, or fails to create one at all.</div>
+            </div></div></div></article>
+
+            <article class="qa" id="b17"><h4><button class="q" type="button"><span class="qid">B17</span><span class="qtext">What happens if the plugin hits an error or can't reach Protectt.ai's server?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>The documented results are:</p>
+              <ul>
+                <li><span class="pill block">BLOCK</span> for unexpected errors during validation (P002)</li>
+                <li><span class="pill block">BLOCK</span> when Protectt.ai's server rejects validation (P003)</li>
+              </ul>
+              <p>The sample code also shows that parsing or connection problems can come through as exceptions, which your code must handle. Decide how to handle these cases and apply it consistently. For high-risk operations, the usual choice is to fail closed (block).</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>
+                <ul>
+                  <li>Timeout and retry behaviour.</li>
+                  <li>Whether an unreachable server returns P002 or throws an exception.</li>
+                  <li>Whether any fail-open option exists.</li>
+                </ul>
+              </div>
+            </div></div></div></article>
+
+            <article class="qa" id="b18"><h4><button class="q" type="button"><span class="qid">B18</span><span class="qtext">What happens to a device that gets a BLOCK?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>According to the docs, when Protectt.ai's server returns BLOCK, the device is blocked and blacklisted. Later checks from that device return <span class="pill block">BLOCK</span> with code P005 ("Device already blacklisted").</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>
+                <ul>
+                  <li>Which BLOCK codes lead to blacklisting.</li>
+                  <li>How long blacklisting lasts.</li>
+                  <li>How a device is removed from the blacklist after a false positive.</li>
+                </ul>
+              </div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group" id="ats-performance">
+          <div class="group-head"><h3>Performance</h3><span class="gcount">1 question</span></div>
+          <div class="qlist">
+            <article class="qa" id="b20"><h4><button class="q" type="button"><span class="qid">B20</span><span class="qtext">Does ATS affect performance?</span></button></h4><div class="a"><div class="a-inner"><div class="a-body">
+              <p>On the device, ATS adds one signal call for each protected request or session. On the backend, each check involves decryption plus a call to Protectt.ai's server, which adds network delay to protected APIs.</p>
+              <p>We recommend load-testing validation in UAT.</p>
+              <div class="note"><span class="nlabel">Pending confirmation</span>Published timing figures, recommended timeouts and throughput guidance.</div>
+            </div></div></div></article>
+          </div>
+        </section>
+
+        <section class="group planned" id="ats-troubleshooting">
+          <div class="group-head"><h3>Troubleshooting</h3><span class="gcount">In preparation</span></div>
+          <ul class="planned-list">
+            <li><span class="chip">Planned</span>Why does validation return P001?</li>
+            <li><span class="chip">Planned</span>Why P007 (session mismatch)?</li>
+          </ul>
+          <p class="planned-foot">Answers will be added once the open documentation items are confirmed.</p>
+        </section>
+
+        <div class="empty" hidden></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<footer class="site-foot">
+  <div class="shell">
+    <b>Building Trust in Mobile World</b>
+    <span>Draft v1 · Based on the AppProtectt iOS Integration Guide V2.3 and the Java Backend Plugin documentation</span>
+  </div>
+</footer>
+
+<template id="flow-tpl">
+  <figure class="flow" style="margin:0 0 14px">
+    <div class="flow-cap"><strong>End-to-end flow</strong><span>App → ATS → your backend + plugin → Protectt.ai server → verdict</span></div>
+    <div class="lanes">
+      <div class="lane-head c1"><b>Mobile app</b><small>AppProtectt + ATS</small></div>
+      <div class="lane-head c2"><b>Your backend</b><small>+ Protectt plugin (JAR)</small></div>
+      <div class="lane-head c3"><b>Protectt.ai</b><small>server</small></div>
+      <span class="lifeline"></span><span class="lifeline"></span><span class="lifeline"></span>
+
+      <div class="msg left c12" style="grid-row:2"><div class="label"><span class="n">1</span><span><span class="lane-tag">Backend → App</span>Issues a session ID and a server timestamp</span></div><div class="line"></div></div>
+      <div class="box c1" style="grid-row:3"><span class="n">2</span><span><span class="lane-tag">Mobile app</span>ATS generates an encrypted signal token from the session ID, device ID, timestamp and threat parameters</span></div>
+      <div class="msg right c12" style="grid-row:4"><div class="label"><span class="n">3</span><span><span class="lane-tag">App → Backend</span>Sends <code>signalToken</code> + <code>clientSessionID</code> in the request body</span></div><div class="line"></div></div>
+      <div class="box c2" style="grid-row:5"><span class="n">4</span><span><span class="lane-tag">Your backend</span>Plugin checks fields, decrypts the token and makes a first decision</span></div>
+      <div class="msg right c23" style="grid-row:6"><div class="label"><span class="n">5</span><span><span class="lane-tag">Backend → Protectt.ai</span>Forwards the decoded signal</span></div><div class="line"></div></div>
+      <div class="box c3" style="grid-row:7"><span class="n">6</span><span><span class="lane-tag">Protectt.ai server</span>Checks blacklist status and rules, then returns ALLOW or BLOCK</span></div>
+      <div class="box verdict c2" style="grid-row:8"><span class="n">7</span><span><span class="lane-tag">Your backend</span>Plugin combines both results. You verify the session ID and that the timestamp is fresh</span></div>
+      <div class="msg left c12" style="grid-row:9"><div class="label"><span class="n">8</span><span><span class="lane-tag">Backend → App</span>Enforces <span class="pill allow">ALLOW</span> / <span class="pill block">BLOCK</span> and responds</span></div><div class="line"></div></div>
+    </div>
+    <div class="note"><span class="nlabel">Pending confirmation</span>Steps 3–8 follow the Java backend plugin documentation. How ATS receives AppProtectt's results on the device (before step 2) isn't documented yet.</div>
+  </figure>
+</template>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var store = {
+    get: function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+    set: function(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+  };
+
+  // Flow diagram into each "work together" group
+  var tpl = document.getElementById('flow-tpl');
+  document.querySelectorAll('[data-flow]').forEach(function(slot){ slot.replaceWith(tpl.content.cloneNode(true)); });
+
+  // Accordion wiring
+  var chev = '<svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg>';
+  function setOpen(qa, open){
+    qa.classList.toggle('open', open);
+    qa.querySelector('.q').setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  document.querySelectorAll('.qa').forEach(function(qa){
+    var btn = qa.querySelector('.q'), ans = qa.querySelector('.a'), body = qa.querySelector('.a-body');
+    btn.id = qa.id + '-q'; ans.id = qa.id + '-a';
+    btn.setAttribute('aria-controls', ans.id); btn.setAttribute('aria-expanded', 'false');
+    ans.setAttribute('role', 'region'); ans.setAttribute('aria-labelledby', btn.id);
+    btn.insertAdjacentHTML('beforeend', chev);
+    body.insertAdjacentHTML('beforeend', '<div class="a-foot"><button class="copy" type="button"><svg aria-hidden="true"><use href="#i-link"/></svg><span>Copy link</span></button></div>');
+    btn.addEventListener('click', function(){
+      var open = !qa.classList.contains('open');
+      setOpen(qa, open);
+      if (open) history.replaceState(null, '', '#' + qa.id);
+    });
+    var copy = body.querySelector('.copy'), label = copy.querySelector('span');
+    copy.addEventListener('click', function(){
+      var url = location.href.split('#')[0] + '#' + qa.id;
+      var done = function(t){ label.textContent = t; setTimeout(function(){ label.textContent = 'Copy link'; }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function(){ done('Link copied'); }, function(){ done('#' + qa.id); });
+      } else { done('#' + qa.id); }
+    });
+    qa.dataset.text = qa.textContent.toLowerCase().replace(/\s+/g, ' ');
+  });
+
+  // Tabs
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels = { appprotectt: document.getElementById('panel-appprotectt'), ats: document.getElementById('panel-ats') };
+  function selectTab(key, opts){
+    opts = opts || {};
+    tabs.forEach(function(t){
+      var on = t.dataset.tab === key;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      if (on && opts.focus) t.focus();
+    });
+    Object.keys(panels).forEach(function(k){ panels[k].hidden = k !== key; });
+    document.querySelectorAll('[data-for]').forEach(function(el){ el.hidden = el.dataset.for !== key; });
+    store.set('faq-tab', key);
+    if (opts.hash !== false) history.replaceState(null, '', '#' + key);
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ selectTab(t.dataset.tab); });
+    t.addEventListener('keydown', function(e){
+      var d = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : (e.key === 'ArrowUp' || e.key === 'ArrowLeft') ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      selectTab(tabs[(i + d + tabs.length) % tabs.length].dataset.tab, { focus: true });
+    });
+  });
+
+  // Expand / collapse all
+  document.querySelectorAll('[data-expand]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var items = Array.prototype.slice.call(b.closest('.panel').querySelectorAll('.qa:not([hidden])'));
+      var anyClosed = items.some(function(q){ return !q.classList.contains('open'); });
+      items.forEach(function(q){ setOpen(q, anyClosed); });
+      b.textContent = anyClosed ? 'Collapse all' : 'Expand all';
+    });
+  });
+
+  // Search across both products
+  var input = document.getElementById('faq-search');
+  var names = { appprotectt: 'AppProtectt', ats: 'ATS' };
+  function runSearch(){
+    var q = input.value.trim().toLowerCase();
+    var counts = {};
+    Object.keys(panels).forEach(function(k){
+      var p = panels[k], total = 0;
+      p.querySelectorAll('.group').forEach(function(g){
+        if (g.classList.contains('planned')) { g.hidden = !!q; return; }
+        var n = 0;
+        g.querySelectorAll('.qa').forEach(function(qa){
+          var m = !q || qa.dataset.text.indexOf(q) !== -1;
+          qa.hidden = !m; if (m) n++;
+        });
+        g.hidden = !!q && n === 0;
+        total += n;
+      });
+      var callout = p.querySelector('.callout'); if (callout) callout.hidden = !!q;
+      counts[k] = total;
+    });
+    tabs.forEach(function(t){ t.querySelector('.count').textContent = counts[t.dataset.tab]; });
+    Object.keys(panels).forEach(function(k){
+      var empty = panels[k].querySelector('.empty');
+      var other = k === 'ats' ? 'appprotectt' : 'ats';
+      if (q && counts[k] === 0) {
+        empty.hidden = false;
+        empty.innerHTML = '';
+        var p = document.createElement('p'); p.style.margin = '0';
+        p.textContent = 'No ' + names[k] + ' questions match “' + input.value.trim() + '”.';
+        empty.appendChild(p);
+        if (counts[other] > 0) {
+          var b = document.createElement('button');
+          b.className = 'btn-quiet'; b.type = 'button';
+          b.textContent = 'Show ' + counts[other] + ' in ' + names[other];
+          b.addEventListener('click', function(){ selectTab(other); });
+          empty.appendChild(b);
+        }
+      } else { empty.hidden = true; }
+    });
+  }
+  input.addEventListener('input', runSearch);
+
+  // Pending-notes toggle
+  var nt = document.getElementById('notes-toggle');
+  if (store.get('faq-notes') === '0') nt.checked = false;
+  function applyNotes(){ root.classList.toggle('hide-notes', !nt.checked); store.set('faq-notes', nt.checked ? '1' : '0'); }
+  nt.addEventListener('change', applyNotes); applyNotes();
+
+  // Deep links: #appprotectt, #ats, or a question id such as #b13
+  function fromHash(){
+    var h = decodeURIComponent(location.hash.slice(1)).toLowerCase();
+    if (panels[h]) { selectTab(h, { hash: false }); return true; }
+    var el = h && document.getElementById(h);
+    if (el && el.classList.contains('qa')) {
+      selectTab(el.closest('.panel').dataset.key, { hash: false });
+      setOpen(el, true);
+      requestAnimationFrame(function(){ el.scrollIntoView({ block: 'start' }); });
+      return true;
+    }
+    if (el) {
+      var panel = el.closest('.panel');
+      if (panel) { selectTab(panel.dataset.key, { hash: false }); requestAnimationFrame(function(){ el.scrollIntoView({ block: 'start' }); }); return true; }
+    }
+    return false;
+  }
+  window.addEventListener('hashchange', fromHash);
+  if (!fromHash()) { var saved = store.get('faq-tab'); selectTab(panels[saved] ? saved : 'appprotectt', { hash: false }); }
+})();
+</script>
+</body>
+</html>
